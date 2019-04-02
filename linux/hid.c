@@ -27,7 +27,6 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <errno.h>
-#include <stdint.h>
 
 /* Unix */
 #include <unistd.h>
@@ -204,7 +203,7 @@ static int uses_numbered_reports(__u8 *report_descriptor, __u32 size) {
  * Get bytes from a HID Report Descriptor.
  * Only call with a num_bytes of 0, 1, 2, or 4.
  */
-static uint32_t get_bytes(uint8_t *rpt, size_t len, size_t num_bytes, size_t cur)
+static __u32 get_bytes(__u8 *rpt, size_t len, size_t num_bytes, size_t cur)
 {
 	/* Return if there aren't enough bytes. */
 	if (cur + num_bytes >= len)
@@ -231,8 +230,7 @@ static uint32_t get_bytes(uint8_t *rpt, size_t len, size_t num_bytes, size_t cur
  * Usage and Usage Page that it finds in the descriptor.
  * The return value is 0 on success and -1 on failure.
  */
-static int get_usage(uint8_t *report_descriptor, size_t size,
-										 unsigned short *usage_page, unsigned short *usage)
+static int get_usage(__u8 *report_descriptor, size_t size, unsigned short *usage_page, unsigned short *usage)
 {
 	int i = 0;
 	int size_code;
